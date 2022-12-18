@@ -90,3 +90,34 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+/*-----------------------------*/
+/*Proceso de reserva de vacante*/
+/*-----------------------------*/
+//DELIMITER 
+CREATE PROCEDURE ingresoMatricula
+(
+   IN fecha date,
+   IN id_aula INT,
+   IN id_alumno INT,
+   IN anio_escolar INT,
+   IN estado varchar(45)
+)
+BEGIN 
+	INSERT INTO matricula(fecha,id_aula,id_alumno,anio_escolar,estado)
+    values(fecha,id_aula,id_alumno,anio_escolar,estado);
+END;
+
+Call ingresoMatricula("2023-02-1",1,16,2023,"PENDIENTE");
+Call ingresoMatricula("2023-02-2",2,18,2023,"PENDIENTE");
+Call ingresoMatricula("2023-02-3",3,19,2023,"PENDIENTE");
+Call ingresoMatricula("2023-02-4",4,20,2023,"PENDIENTE");
+
+/*-----------------------------*/
+/* Agregar vacante ocupada*/
+/*-----------------------------*/
+Set @grado = 4;
+
+UPDATE grado
+SET matriculados = matriculados + 1
+WHERE id_grado = @grado;
