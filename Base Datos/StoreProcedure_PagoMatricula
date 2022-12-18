@@ -1,0 +1,41 @@
+-- Creacion de cliente en la pasarela Stripe
+
+SET @customer_id = "CUS-Axpdmfenc";
+SET @alumno_id = "15";
+
+Update alumno 
+SET customerid = @customer_id, is_Stripe_Customer = 1
+WHERE id_alumno = @alumno_id;
+
+-- Previamente hacer un select del aula de matricula para de ahí obtener el grado en especifico, por ahora solo lo ponemos
+-- Registrar voucher (Para el pago de matricula 1ero - s/.500)
+
+//DELIMITER 
+CREATE PROCEDURE registro_voucher
+(
+   IN fecha date,
+   IN id_matricula INT,
+   IN monto double
+)
+BEGIN 
+	INSERT INTO pago(fecha,id_matricula,monto)
+    values(fecha,id_matricula,monto);
+END;
+
+Call registro_voucher("2023-02-2",15,500.0);
+
+-- Pago correcto 
+
+SET @matricula_id = 15;
+
+Update matricula 
+SET estado = "PAGADO"
+WHERE id_matricula = @matricula_id;
+
+-- Pago no procesado
+
+SET @matricula_id = 16;
+
+Update matricula 
+SET estado = "NO_PAGADO"
+WHERE id_matricula = @matricula_id;
