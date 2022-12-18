@@ -7,7 +7,6 @@ Update alumno
 SET customerid = @customer_id, is_Stripe_Customer = 1
 WHERE id_alumno = @alumno_id;
 
--- Previamente hacer un select del aula de matricula para de ahí obtener el grado en especifico, por ahora solo lo ponemos
 -- Registrar voucher (Para el pago de matricula 1ero - s/.500)
 
 //DELIMITER 
